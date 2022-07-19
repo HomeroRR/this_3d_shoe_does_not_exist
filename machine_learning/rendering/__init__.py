@@ -117,7 +117,7 @@ class MeshRenderer():
             if pad:
                 voxels = np.pad(voxels, 1, mode='constant', constant_values=1)
             try:
-                vertices, faces, normals, _ = skimage.measure.marching_cubes_lewiner(voxels, level=level, spacing=(2.0 / voxel_resolution, 2.0 / voxel_resolution, 2.0 / voxel_resolution))
+                vertices, faces, normals, _ = skimage.measure.marching_cubes(voxels, level=level, spacing=(2.0 / voxel_resolution, 2.0 / voxel_resolution, 2.0 / voxel_resolution))
                 vertices = vertices[faces, :].astype(np.float32) - 1
                 self.ground_level = np.min(vertices[:, 1]).item()
 

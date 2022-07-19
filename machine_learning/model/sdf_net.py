@@ -100,7 +100,7 @@ class SDFNet(SavableModule):
         voxels = self.get_voxels(latent_code, voxel_resolution=voxel_resolution, sphere_only=sphere_only)
         voxels = np.pad(voxels, 1, mode='constant', constant_values=1)
         try:
-            vertices, faces, normals, _ = skimage.measure.marching_cubes_lewiner(voxels, level=level, spacing=(size / voxel_resolution, size / voxel_resolution, size / voxel_resolution))
+            vertices, faces, normals, _ = skimage.measure.marching_cubes(voxels, level=level, spacing=(size / voxel_resolution, size / voxel_resolution, size / voxel_resolution))
         except ValueError as value_error:
             if raise_on_empty:
                 raise value_error
