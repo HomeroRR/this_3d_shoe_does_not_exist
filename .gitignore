@@ -1,0 +1,26 @@
+# vscode
+.vscode/**
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# C extensions
+*.so
+
+# Other extensions
+*.gz
+*.npy
+
+# Local data
+machine_learning/data/
+machine_learning/plots/
+machine_learning/images/
+machine_learning/generated_objects/
+machine_learning/screenshots/
