@@ -35,7 +35,7 @@ class SavableModule(nn.Module):
 
 
     def load(self, epoch=None):
-        self.load_state_dict(torch.load(self.get_filename(epoch=epoch)), strict=False)
+        self.load_state_dict(torch.load(self.get_filename(epoch=epoch),map_location = torch.device("cuda" if torch.cuda.is_available() else "cpu")), strict=False)
     
     def save(self, epoch=None):
         if epoch is not None and not os.path.exists(CHECKPOINT_PATH):

@@ -3,6 +3,7 @@ import trimesh
 import skimage.measure
 from util import get_points_in_unit_sphere, get_voxel_coordinates
 import numpy as np
+import torch
 
 class SDFVoxelizationHelperData():
     def __init__(self, device, voxel_resolution, sphere_only=True):
@@ -21,7 +22,7 @@ sdf_voxelization_helper = dict()
 SDF_NET_BREADTH = 256
 
 class SDFNet(SavableModule):
-    def __init__(self, latent_code_size=LATENT_CODE_SIZE, device='cuda'):
+    def __init__(self, latent_code_size=LATENT_CODE_SIZE, device=torch.device("cuda" if torch.cuda.is_available() else "cpu")):
         super(SDFNet, self).__init__(filename="sdf_net.to")
         self.layers1 = nn.Sequential(
             nn.Linear(in_features = 3 + latent_code_size, out_features = SDF_NET_BREADTH),
