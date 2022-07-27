@@ -1,4 +1,5 @@
 import Head from "next/head";
+import MainBanner from "../src/components/banner/MainBanner";
 import type { NextPage } from "next";
 
 const Home: NextPage = () => (
@@ -12,7 +13,7 @@ const Home: NextPage = () => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <main>
-      <div>This 3D shoe does not exist</div>
+      <MainBanner />
     </main>
   </>
 );
