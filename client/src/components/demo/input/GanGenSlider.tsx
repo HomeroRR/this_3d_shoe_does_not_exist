@@ -8,21 +8,29 @@ import {
   Stack,
 } from "@mui/material";
 import type { ChangeEvent } from "react";
-import { minWidth } from "@mui/system";
 
 type GanGenVal = number | string | Array<number | string>;
 
+interface Props {
+  attr: string;
+  step: number;
+  min: number;
+  max: number;
+}
+
 const DEFAULT_LABEL = "Property";
 const DEFAULT_VALUE = 0;
-const DEFAULT_STEP = 1;
-const DEFAULT_MIN = 0;
-const DEFAULT_MAX = 100;
 
 const clamp = (val: number, min: number, max: number): number =>
   val < min ? min : val > max ? max : val;
 
-function GanGenSlider(): JSX.Element {
-  const sliderId = `${DEFAULT_LABEL}_input-slider`;
+function GanGenSlider(props: Props): JSX.Element {
+  const { attr, step, min, max } = props;
+  const sliderId = `${attr}_input-slider`;
+  const marks = Object.seal([
+    { value: min, label: `${min}` },
+    { value: max, label: `${max}` },
+  ]);
   const [value, setValue] = useState<GanGenVal>(DEFAULT_VALUE);
 
   const handleSliderChange = (_: Event, newValue: GanGenVal): void =>
@@ -31,8 +39,7 @@ function GanGenSlider(): JSX.Element {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void =>
     setValue(event.target.value === "" ? "" : Number(event.target.value));
 
-  const handleBlur = (): void =>
-    setValue(clamp(Number(value), DEFAULT_MIN, DEFAULT_MAX));
+  const handleBlur = (): void => setValue(clamp(Number(value), min, max));
 
   return (
     <Container maxWidth="sm">
@@ -47,7 +54,10 @@ function GanGenSlider(): JSX.Element {
             <Typography id={sliderId}>{DEFAULT_LABEL}</Typography>
           </Box>
           <Slider
-            value={typeof value === "number" ? value : DEFAULT_MIN}
+            min={min}
+            max={max}
+            marks={marks}
+            value={typeof value === "number" ? value : min}
             onChange={handleSliderChange}
             aria-labelledby={sliderId}
           />
@@ -58,9 +68,9 @@ function GanGenSlider(): JSX.Element {
               onChange={handleInputChange}
               onBlur={handleBlur}
               inputProps={{
-                step: DEFAULT_STEP,
-                min: DEFAULT_MIN,
-                max: DEFAULT_MAX,
+                step,
+                min,
+                max,
                 type: "number",
                 "aria-labelledby": sliderId,
               }}
