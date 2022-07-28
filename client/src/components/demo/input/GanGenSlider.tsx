@@ -16,22 +16,20 @@ interface Props {
   step: number;
   min: number;
   max: number;
+  value: GanGenVal;
+  setValue: React.Dispatch<React.SetStateAction<GanGenVal>>;
 }
-
-const DEFAULT_LABEL = "Property";
-const DEFAULT_VALUE = 0;
 
 const clamp = (val: number, min: number, max: number): number =>
   val < min ? min : val > max ? max : val;
 
 function GanGenSlider(props: Props): JSX.Element {
-  const { attr, step, min, max } = props;
+  const { attr, step, min, max, value, setValue } = props;
   const sliderId = `${attr}_input-slider`;
   const marks = Object.seal([
     { value: min, label: `${min}` },
     { value: max, label: `${max}` },
   ]);
-  const [value, setValue] = useState<GanGenVal>(DEFAULT_VALUE);
 
   const handleSliderChange = (_: Event, newValue: GanGenVal): void =>
     setValue(newValue);
@@ -51,9 +49,12 @@ function GanGenSlider(props: Props): JSX.Element {
           spacing={2}
         >
           <Box mx={1}>
-            <Typography id={sliderId}>{DEFAULT_LABEL}</Typography>
+            <Typography id={sliderId} sx={{ width: 100 }}>
+              {attr}
+            </Typography>
           </Box>
           <Slider
+            step={step}
             min={min}
             max={max}
             marks={marks}
@@ -73,8 +74,9 @@ function GanGenSlider(props: Props): JSX.Element {
                 max,
                 type: "number",
                 "aria-labelledby": sliderId,
+                width: 50,
               }}
-              sx={{ minWidth: 30 }}
+              sx={{ width: 60 }}
             />
           </Box>
         </Stack>

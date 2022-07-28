@@ -1,7 +1,14 @@
 import Head from "next/head";
 import MainBanner from "../src/components/banner/MainBanner";
 import type { NextPage } from "next";
-import MainDemo from "../src/components/demo/MainDemo";
+
+
+import dynamic from 'next/dynamic'
+
+const MainDemo = dynamic(
+  () => import("../src/components/demo/MainDemo"),
+  { ssr: false }
+)
 
 const Home: NextPage = () => (
   <>
