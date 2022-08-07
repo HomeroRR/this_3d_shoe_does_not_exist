@@ -1,3 +1,6 @@
+import { Box, Button, Grid, Stack } from "@mui/material";
+import ViewInArIcon from "@mui/icons-material/ViewInAr";
+import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import { useState, useEffect, useRef } from "react";
 import Display from "../../services/shapeGeneration/Display";
 import GanGenSlider from "./input/GanGenSlider";
@@ -51,40 +54,75 @@ function MainDemo(): JSX.Element {
 
   return (
     <>
-      <button onClick={() => shapeGenDisplay.generateShape()}>Generate Shape</button>
-      <button onClick={() => shapeGenDisplay.currentShape?.saveSTLFile()}>
-        Generate Shape
-      </button>
       <div>{progress}</div>
-      <GanGenSlider
-        attr="level"
-        step={0.002}
-        min={0}
-        max={0.1}
-        value={level}
-        setValue={setLevel}
-      />
-      <GanGenSlider
-        attr="weirdness"
-        step={0.02}
-        min={0}
-        max={2.5}
-        value={weirdness}
-        setValue={setWeirdness}
-      />
-      <GanGenSlider
-        attr="resolution"
-        step={2}
-        min={4}
-        max={128}
-        value={resolution}
-        setValue={setResolution}
-      />
-      <canvas
-        ref={canvasRef}
-        style={{ width: "100vw", height: "calc(100vh - 200px)" }}
-        id="container"
-      />
+      <Grid container justifyContent="center" alignItems="center">
+        <Grid item>
+          <Box my={5}>
+            <canvas
+              ref={canvasRef}
+              style={{
+                width: "90vw",
+                height: "90vh",
+                border: "1px solid black",
+              }}
+              id="container"
+            />
+          </Box>
+        </Grid>
+      </Grid>
+      <Stack
+        justifyContent="space-evenly"
+        alignItems="space-evenly"
+        spacing={4}
+      >
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+        >
+          <Button
+            variant="contained"
+            startIcon={<ViewInArIcon />}
+            onClick={() => shapeGenDisplay.generateShape()}
+          >
+            Generate
+          </Button>
+          <Button
+            variant="outlined"
+            endIcon={<SaveAltIcon />}
+            onClick={() => shapeGenDisplay.currentShape?.saveSTLFile()}
+          >
+            Save
+          </Button>
+        </Stack>
+        <Stack justifyContent="center" alignItems="center" spacing={1}>
+          <GanGenSlider
+            attr="level"
+            step={0.002}
+            min={0}
+            max={0.1}
+            value={level}
+            setValue={setLevel}
+          />
+          <GanGenSlider
+            attr="weirdness"
+            step={0.02}
+            min={0}
+            max={2.5}
+            value={weirdness}
+            setValue={setWeirdness}
+          />
+          <GanGenSlider
+            attr="resolution"
+            step={2}
+            min={4}
+            max={128}
+            value={resolution}
+            setValue={setResolution}
+          />
+        </Stack>
+      </Stack>
     </>
   );
 }
