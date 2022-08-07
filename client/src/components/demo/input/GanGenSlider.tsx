@@ -6,6 +6,8 @@ import {
   Input,
   Container,
   Stack,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import type { ChangeEvent } from "react";
 
@@ -30,6 +32,8 @@ function GanGenSlider(props: Props): JSX.Element {
     { value: min, label: `${min}` },
     { value: max, label: `${max}` },
   ]);
+  const theme = useTheme();
+  const isScreenWidthNarrow = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleSliderChange = (_: Event, newValue: GanGenVal): void =>
     setValue(newValue);
@@ -41,46 +45,91 @@ function GanGenSlider(props: Props): JSX.Element {
 
   return (
     <Container maxWidth="sm">
-      <Box sx={{ width: "90%" }}>
-        <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={2}
-        >
-          <Box mx={1}>
-            <Typography id={sliderId} sx={{ width: 100 }}>
-              {attr}
-            </Typography>
-          </Box>
-          <Slider
-            step={step}
-            min={min}
-            max={max}
-            marks={marks}
-            value={typeof value === "number" ? value : min}
-            onChange={handleSliderChange}
-            aria-labelledby={sliderId}
-          />
-          <Box mx={1}>
-            <Input
-              value={value}
-              size="small"
-              onChange={handleInputChange}
-              onBlur={handleBlur}
-              inputProps={{
-                step,
-                min,
-                max,
-                type: "number",
-                "aria-labelledby": sliderId,
-                width: 50,
-              }}
-              sx={{ width: 60 }}
+      {isScreenWidthNarrow ? (
+        <Box sx={{ width: "calc(100% - 20px)" }}>
+          <Stack justifyContent="center" alignItems="center" spacing={0}>
+            <Stack
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={2}
+            >
+              <Box mx={1}>
+                <Typography id={sliderId} sx={{ width: 100 }}>
+                  {attr}
+                </Typography>
+              </Box>
+              <Box mx={1}>
+                <Input
+                  value={value}
+                  size="small"
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  inputProps={{
+                    step,
+                    min,
+                    max,
+                    type: "number",
+                    "aria-labelledby": sliderId,
+                    width: 50,
+                  }}
+                  sx={{ width: 60 }}
+                />
+              </Box>
+            </Stack>
+            <Slider
+              step={step}
+              min={min}
+              max={max}
+              marks={marks}
+              value={typeof value === "number" ? value : min}
+              onChange={handleSliderChange}
+              aria-labelledby={sliderId}
             />
-          </Box>
-        </Stack>
-      </Box>
+          </Stack>
+        </Box>
+      ) : (
+        <Box sx={{ width: "calc(100% - 20px)" }} my={4}>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+          >
+            <Box mx={1}>
+              <Typography id={sliderId} sx={{ width: 100 }}>
+                {attr}
+              </Typography>
+            </Box>
+            <Box mx={1}>
+              <Input
+                value={value}
+                size="small"
+                onChange={handleInputChange}
+                onBlur={handleBlur}
+                inputProps={{
+                  step,
+                  min,
+                  max,
+                  type: "number",
+                  "aria-labelledby": sliderId,
+                  width: 50,
+                }}
+                sx={{ width: 70, border: "1px solid black" }}
+              />
+            </Box>
+            <Slider
+              step={step}
+              min={min}
+              max={max}
+              marks={marks}
+              value={typeof value === "number" ? value : min}
+              onChange={handleSliderChange}
+              aria-labelledby={sliderId}
+            />
+          </Stack>
+        </Box>
+      )}
     </Container>
   );
 }
