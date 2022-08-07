@@ -6,7 +6,7 @@ import getGrid from "./TensorGrid";
 import STLFile from "./STLFile";
 import LatentCode from "./LatentCode";
 import Animation from "./Animation";
-import EventBus from "./EventBus";
+import EventBus from "../../components/demo/EventBus";
 
 const BATCH_SIZE = 4096;
 

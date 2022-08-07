@@ -1,6 +1,6 @@
 import Shape, { onnxSession } from "./Shape";
 import LatentCode from "./LatentCode";
-import type EventBus from "./EventBus";
+import type EventBus from "../../components/demo/EventBus";
 
 interface GanGenParams {
   seed: number | null;

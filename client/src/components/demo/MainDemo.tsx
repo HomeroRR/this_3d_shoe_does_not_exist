@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import Display from "./Display";
+import Display from "../../services/shapeGeneration/Display";
 import GanGenSlider from "./input/GanGenSlider";
 
 type GanGenVal = number | string | Array<number | string>;
