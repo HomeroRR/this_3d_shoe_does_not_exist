@@ -1,16 +1,15 @@
-import * as THREE from "three";
-import * as onnx from "onnxjs";
-
+import { InferenceSession, Tensor } from "onnxjs";
+import { Face3, Geometry, Vector3 } from "three";
+import EventBus from "services/bus/EventBus";
 import marchingCubes from "./marchingcubes";
 import getGrid from "./TensorGrid";
 import STLFile from "./STLFile";
 import LatentCode from "./LatentCode";
 import Animation from "./Animation";
-import EventBus from "../bus/EventBus";
 
 const BATCH_SIZE = 4096;
 
-export const onnxSession = new onnx.InferenceSession({ backendHint: "webgl" });
+export const onnxSession = new InferenceSession({ backendHint: "webgl" });
 
 const animation = new Animation();
 
@@ -22,8 +21,8 @@ class Shape {
   private batchCount!: number;
   private surfaceLevel!: number;
   private latentCodeScalingFactor!: number;
-  private grid!: onnx.Tensor[];
-  private latentCodeBatch!: onnx.Tensor;
+  private grid!: Tensor[];
+  private latentCodeBatch!: Tensor;
   private sdfBatches!: Float32Array[];
   private startTime!: number;
   private mesh!: { vertices: number[][]; triangles: number[][] };
@@ -62,10 +61,7 @@ class Shape {
       setTimeout(this.onInferenceComplete.bind(this), 0);
     } else {
       const batchIndex: number = this.sdfBatches.length;
-      const input: onnx.Tensor[] = [
-        this.grid[batchIndex],
-        this.latentCodeBatch,
-      ];
+      const input: Tensor[] = [this.grid[batchIndex], this.latentCodeBatch];
 
       const runOnnxInference = async (): Promise<void> => {
         try {
@@ -148,20 +144,20 @@ class Shape {
   }
 
   private createGeometry(): THREE.Geometry {
-    const geometry = new THREE.Geometry();
+    const geometry = new Geometry();
 
     this.mesh.vertices.forEach((vtx: number[]): void => {
-      const vertex = new THREE.Vector3(vtx[0], vtx[1], vtx[2]);
+      const vertex = new Vector3(vtx[0], vtx[1], vtx[2]);
       geometry.vertices.push(vertex);
     });
 
     this.mesh.triangles.forEach((triangle: number[]): void => {
-      const face = new THREE.Face3(triangle[0], triangle[1], triangle[2]);
+      const face = new Face3(triangle[0], triangle[1], triangle[2]);
       geometry.faces.push(face);
     });
 
-    const ab = new THREE.Vector3();
-    let cb = new THREE.Vector3();
+    const ab = new Vector3();
+    let cb = new Vector3();
     geometry.faces.forEach((triangle: THREE.Face3): void => {
       const vA = geometry.vertices[triangle.a];
       const vB = geometry.vertices[triangle.b];
