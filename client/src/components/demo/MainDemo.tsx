@@ -8,8 +8,8 @@ import GanGenSlider from "./input/GanGenSlider";
 
 type GanGenVal = number | string | Array<number | string>;
 
-const DEFAULT_LEVEL = 0.04;
-const DEFAULT_WEIRDNESS = 1;
+const DEFAULT_LEVEL = 0.008;
+const DEFAULT_WEIRDNESS = 1.9;
 const DEFAULT_RESOLUTION = 24;
 const DEFAULT_PROGRESS = 0;
 
