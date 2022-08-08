@@ -22,7 +22,6 @@ class Shape {
   private batchCount!: number;
   private surfaceLevel!: number;
   private latentCodeScalingFactor!: number;
-  private lastUIUpdate!: number;
   private grid!: onnx.Tensor[];
   private latentCodeBatch!: onnx.Tensor;
   private sdfBatches!: Float32Array[];
@@ -41,7 +40,6 @@ class Shape {
     this.batchCount = Math.ceil(Math.pow(resolution, 3) / BATCH_SIZE);
     this.surfaceLevel = level;
     this.latentCodeScalingFactor = latentCodeScalingFactor;
-    this.lastUIUpdate = new Date().getTime();
     animation.setUp(canvas);
   }
 
@@ -68,7 +66,6 @@ class Shape {
         this.grid[batchIndex],
         this.latentCodeBatch,
       ];
-      const now: number = new Date().getTime();
 
       const runOnnxInference = async (): Promise<void> => {
         try {
@@ -80,15 +77,10 @@ class Shape {
         }
       };
 
-      if (now - this.lastUIUpdate > 400) {
-        const progress = Math.floor((batchIndex / this.batchCount) * 100);
-        setStatus(`Generating... ${progress} %"`);
-        Shape.eventBus.emit("progress", { progress });
-        setTimeout(runOnnxInference, 0);
-        this.lastUIUpdate = now;
-      } else {
-        runOnnxInference();
-      }
+      const progress = Math.floor((batchIndex / this.batchCount) * 100);
+      setStatus(`Generating... ${progress} %"`);
+      Shape.eventBus.emit("progress", { progress });
+      setTimeout(runOnnxInference, 300);
     }
   }
 
