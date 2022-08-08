@@ -1,4 +1,11 @@
-import { Box, Button, Grid, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Stack,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import ViewInArIcon from "@mui/icons-material/ViewInAr";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import Progress from "./output/Progress";
@@ -21,6 +28,13 @@ function MainDemo(): JSX.Element {
   const [resolution, setResolution] = useState<GanGenVal>(DEFAULT_RESOLUTION);
   const [progress, setProgress] = useState<number>(DEFAULT_PROGRESS);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const theme = useTheme();
+  const isScreenWidthWide = useMediaQuery(theme.breakpoints.up("md"));
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (canvas) shapeGenDisplay.canvas = canvas;
+  }, []);
 
   useEffect(() => {
     function keepProgress(event: Event): void {
@@ -29,13 +43,6 @@ function MainDemo(): JSX.Element {
     }
     Display.eventBus.on("progress", keepProgress);
     return () => Display.eventBus.off("progress", keepProgress);
-  }, []);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (canvas) {
-      shapeGenDisplay.canvas = canvas;
-    }
   }, []);
 
   useEffect(() => {
@@ -54,16 +61,16 @@ function MainDemo(): JSX.Element {
   }, [resolution]);
 
   return (
-    <>
-      <Box component="section" position="relative">
+    <Stack direction={isScreenWidthWide ? "row" : "column"}>
+      <Box component="section" position="relative" mx={5}>
         <Grid container justifyContent="center" alignItems="center">
           <Grid item>
             <Box my={5}>
               <canvas
                 ref={canvasRef}
                 style={{
-                  width: "90vw",
-                  height: "90vh",
+                  width: isScreenWidthWide ? "70vw" : "90vw",
+                  height: isScreenWidthWide ? "70vh" : "90vh",
                   border: "1px solid black",
                 }}
                 id="container"
@@ -90,6 +97,7 @@ function MainDemo(): JSX.Element {
         >
           <Button
             variant="contained"
+            color="secondary"
             startIcon={<ViewInArIcon />}
             onClick={() => shapeGenDisplay.generateShape()}
           >
@@ -130,7 +138,7 @@ function MainDemo(): JSX.Element {
           />
         </Stack>
       </Stack>
-    </>
+    </Stack>
   );
 }
 
