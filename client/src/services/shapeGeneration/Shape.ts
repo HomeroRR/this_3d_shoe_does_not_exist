@@ -127,6 +127,7 @@ class Shape {
     this.show();
     Shape.isGenerating = false;
     setStatus("");
+    Shape.eventBus.emit("progress", { progress: 100 });
   }
 
   public updateSurfaceLevel(newLevel: number): void {
