@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Stack } from "@mui/material";
 import ViewInArIcon from "@mui/icons-material/ViewInAr";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import Progress from "./output/Progress";
 import { useState, useEffect, useRef } from "react";
 import Display from "../../services/shapeGeneration/Display";
 import GanGenSlider from "./input/GanGenSlider";
@@ -54,22 +55,28 @@ function MainDemo(): JSX.Element {
 
   return (
     <>
-      <div>{progress}</div>
-      <Grid container justifyContent="center" alignItems="center">
-        <Grid item>
-          <Box my={5}>
-            <canvas
-              ref={canvasRef}
-              style={{
-                width: "90vw",
-                height: "90vh",
-                border: "1px solid black",
-              }}
-              id="container"
-            />
-          </Box>
+      <Box component="section" position="relative">
+        <Grid container justifyContent="center" alignItems="center">
+          <Grid item>
+            <Box my={5}>
+              <canvas
+                ref={canvasRef}
+                style={{
+                  width: "90vw",
+                  height: "90vh",
+                  border: "1px solid black",
+                }}
+                id="container"
+              />
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+        {progress < 100 && (
+          <Box position="absolute" top="50%" left="50%">
+            <Progress value={progress} />
+          </Box>
+        )}
+      </Box>
       <Stack
         justifyContent="space-evenly"
         alignItems="space-evenly"
