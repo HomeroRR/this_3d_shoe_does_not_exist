@@ -65,8 +65,25 @@ class Animation {
     window.addEventListener("resize", resize, false);
     return camera;
   }
+  private createAmbientLight(): AmbientLight {
+    return new AmbientLight(0xffffff);
+  }
+  private create3PtLighting(camera: PerspectiveCamera): DirectionalLight[] {
+    const { x, y, z } = camera.position;
+    const keyLight = new DirectionalLight(0xffffff);
+    const fillLight = new DirectionalLight(0xaaaaaa);
+    const backendLight = new DirectionalLight(0x888888);
+    keyLight.position.set(x, y, z).normalize();
+    fillLight.position.set(x, y, -z).normalize();
+    backendLight.position.set(-x, -y, -z).normalize();
+    return [keyLight, fillLight, backendLight];
+  }
   private createScene(camera: PerspectiveCamera): Scene {
     const scene = new Scene();
+    const ambientLight = this.createAmbientLight();
+    const [keyLight, fillLight, backendLight] = this.create3PtLighting(camera);
+    scene.add(ambientLight);
+    scene.add(keyLight, fillLight, backendLight);
     scene.add(camera);
     return scene;
   }
