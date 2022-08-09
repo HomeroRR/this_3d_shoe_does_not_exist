@@ -1,6 +1,8 @@
 import {
+  AmbientLight,
+  DirectionalLight,
   Mesh,
-  MeshNormalMaterial,
+  MeshStandardMaterial,
   PerspectiveCamera,
   Scene,
   Vector3,
@@ -10,7 +12,10 @@ import { OrbitControls } from "./OrbitControls.js";
 import type { Geometry, Object3D } from "three";
 
 class Animation {
-  private readonly DEFAULT_MATERIAL = new MeshNormalMaterial();
+  private readonly DEFAULT_MATERIAL = new MeshStandardMaterial({
+    metalness: 0.6,
+    color: 0xe1c7ac,
+  });
   private scene!: Scene;
   private meshObject!: Object3D;
   private renderer!: WebGLRenderer;
@@ -24,6 +29,7 @@ class Animation {
     this.scene.remove(this.meshObject);
 
     const newMeshObject = new Mesh(geometry, this.DEFAULT_MATERIAL);
+
     const scale = 2 / resolution;
     newMeshObject.position.x = (-resolution / 2.0) * scale;
     newMeshObject.position.y = (-resolution / 2.0) * scale;
