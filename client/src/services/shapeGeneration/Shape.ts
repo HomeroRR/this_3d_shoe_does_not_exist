@@ -121,6 +121,7 @@ class Shape {
   public updateSurfaceLevel(newLevel: number): void {
     const difference: number = this.surfaceLevel - newLevel;
     this.surfaceLevel = newLevel;
+    if (!this.voxels?.length) return;
     for (let i = 0; i < this.voxels.length; i++) this.voxels[i] += difference;
 
     const paddedResolution: number = this.resolution + 2;
