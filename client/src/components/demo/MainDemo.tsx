@@ -70,7 +70,7 @@ function MainDemo(): JSX.Element {
                 ref={canvasRef}
                 style={{
                   width: isScreenWidthWide ? "70vw" : "90vw",
-                  height: isScreenWidthWide ? "70vh" : "90vh",
+                  height: isScreenWidthWide ? "70vh" : "calc(100vh - 150px)",
                   border: "1px solid black",
                 }}
                 id="container"
@@ -79,7 +79,7 @@ function MainDemo(): JSX.Element {
           </Grid>
         </Grid>
         {progress < 100 && (
-          <Box position="absolute" top="50%" left="50%">
+          <Box position="absolute" top="40%" left="40%">
             <Progress value={progress} />
           </Box>
         )}
