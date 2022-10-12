@@ -128,14 +128,14 @@ function MainDemo(): JSX.Element {
             value={weirdness}
             setValue={setWeirdness}
           />
-          <GanGenSlider
+          {/* <GanGenSlider
             attr="resolution"
             step={2}
             min={4}
             max={128}
             value={resolution}
             setValue={setResolution}
-          />
+          /> */}
         </Stack>
       </Stack>
     </Stack>
