@@ -53,8 +53,6 @@ export default class MyDocument extends Document {
         </Head>
         <body>
           <Main />
-          <div id="status">Loading model...</div>
-          <div id="container"></div>
           <NextScript />
         </body>
       </Html>
