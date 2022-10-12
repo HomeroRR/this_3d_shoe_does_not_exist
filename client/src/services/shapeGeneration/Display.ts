@@ -10,7 +10,7 @@ interface GanGenParams {
   level: number;
 }
 
-const GAN_MODEL_URI = "chairs.onnx";
+const GAN_MODEL_URI = "shoes.onnx";
 const DEFAULT_PARAMETERS = Object.freeze({
   seed: null,
   resolution: 24,
