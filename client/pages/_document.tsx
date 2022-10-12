@@ -28,22 +28,9 @@ export default class MyDocument extends Document {
             name="description"
             content="Generate a new 3D shoe using 3D GAN."
           />
-          <meta name="theme-color" content={theme.palette.background.default} />
           <meta name="msapplication-TileColor" content="#603cba" />
+          <meta name="theme-color" content={theme.palette.background.default} />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="true"
-          />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap&text=Navlead"
-          />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
