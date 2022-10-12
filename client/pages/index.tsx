@@ -1,14 +1,13 @@
 import Head from "next/head";
 import MainBanner from "../src/components/banner/MainBanner";
+import MainFooter from "../src/components/footer/MainFooter";
 import type { NextPage } from "next";
 
+import dynamic from "next/dynamic";
 
-import dynamic from 'next/dynamic'
-
-const MainDemo = dynamic(
-  () => import("../src/components/demo/MainDemo"),
-  { ssr: false }
-)
+const MainDemo = dynamic(() => import("../src/components/demo/MainDemo"), {
+  ssr: false,
+});
 
 const Home: NextPage = () => (
   <>
@@ -23,6 +22,7 @@ const Home: NextPage = () => (
     <main>
       <MainBanner />
       <MainDemo />
+      <MainFooter />
     </main>
   </>
 );
