@@ -186,7 +186,8 @@ class Shape {
 }
 
 function setStatus(value: string) {
-  document.getElementById("status")!.innerText = value;
+  // document.getElementById("status")!.innerText = value;
+  console.log(`progress: ${value}`)
 }
 
 export default Shape;
