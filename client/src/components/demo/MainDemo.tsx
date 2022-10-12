@@ -61,74 +61,76 @@ function MainDemo(): JSX.Element {
   }, [resolution]);
 
   return (
-    <Stack direction={isScreenWidthWide ? "row" : "column"}>
-      <Box component="section" position="relative" mx={5}>
-        <Grid container justifyContent="center" alignItems="center">
-          <Grid item>
-            <Box my={5}>
-              <canvas
-                ref={canvasRef}
-                style={{
-                  width: isScreenWidthWide ? "70vw" : "90vw",
-                  height: isScreenWidthWide ? "70vh" : "calc(100vh - 150px)",
-                  border: "1px solid black",
-                }}
-                id="container"
-              />
-            </Box>
+    <Box component="section" my={5}>
+      <Stack direction={isScreenWidthWide ? "row" : "column"}>
+        <Box component="section" position="relative" mx={5}>
+          <Grid container justifyContent="center" alignItems="center">
+            <Grid item>
+              <Box my={5}>
+                <canvas
+                  ref={canvasRef}
+                  style={{
+                    width: isScreenWidthWide ? "70vw" : "90vw",
+                    height: isScreenWidthWide ? "70vh" : "calc(100vh - 150px)",
+                    border: "1px solid black",
+                  }}
+                  id="container"
+                />
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
-        {progress < 100 && (
-          <Box position="absolute" top="40%" left="40%">
-            <Progress value={progress} />
-          </Box>
-        )}
-      </Box>
-      <Stack
-        justifyContent="space-evenly"
-        alignItems="space-evenly"
-        spacing={4}
-      >
+          {progress < 100 && (
+            <Box position="absolute" top="40%" left="40%">
+              <Progress value={progress} />
+            </Box>
+          )}
+        </Box>
         <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={2}
+          component="form"
+          justifyContent="space-evenly"
+          alignItems="space-evenly"
+          spacing={4}
         >
-          <Button
-            variant="contained"
-            color="secondary"
-            startIcon={<ViewInArIcon />}
-            onClick={() => shapeGenDisplay.generateShape()}
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
           >
-            Generate
-          </Button>
-          <Button
-            variant="outlined"
-            endIcon={<SaveAltIcon />}
-            onClick={() => shapeGenDisplay.currentShape?.saveSTLFile()}
-          >
-            Save
-          </Button>
-        </Stack>
-        <Stack justifyContent="center" alignItems="center" spacing={1}>
-          <GanGenSlider
-            attr="level"
-            step={0.002}
-            min={0}
-            max={0.1}
-            value={level}
-            setValue={setLevel}
-          />
-          <GanGenSlider
-            attr="weirdness"
-            step={0.02}
-            min={0}
-            max={2.5}
-            value={weirdness}
-            setValue={setWeirdness}
-          />
-          {/* <GanGenSlider
+            <Button
+              variant="contained"
+              color="secondary"
+              startIcon={<ViewInArIcon />}
+              onClick={() => shapeGenDisplay.generateShape()}
+            >
+              Generate
+            </Button>
+            <Button
+              variant="outlined"
+              endIcon={<SaveAltIcon />}
+              onClick={() => shapeGenDisplay.currentShape?.saveSTLFile()}
+            >
+              Save
+            </Button>
+          </Stack>
+          <Stack justifyContent="center" alignItems="center" spacing={1}>
+            <GanGenSlider
+              attr="level"
+              step={0.002}
+              min={0}
+              max={0.1}
+              value={level}
+              setValue={setLevel}
+            />
+            <GanGenSlider
+              attr="weirdness"
+              step={0.02}
+              min={0}
+              max={2.5}
+              value={weirdness}
+              setValue={setWeirdness}
+            />
+            {/* <GanGenSlider
             attr="resolution"
             step={2}
             min={4}
@@ -136,9 +138,10 @@ function MainDemo(): JSX.Element {
             value={resolution}
             setValue={setResolution}
           /> */}
+          </Stack>
         </Stack>
       </Stack>
-    </Stack>
+    </Box>
   );
 }
 
