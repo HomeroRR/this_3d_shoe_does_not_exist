@@ -4,6 +4,7 @@ import MainFooter from "../src/components/footer/MainFooter";
 import type { NextPage } from "next";
 
 import dynamic from "next/dynamic";
+import AttributionSection from "components/content/home/AttributionSection";
 
 const MainDemo = dynamic(() => import("../src/components/demo/MainDemo"), {
   ssr: false,
@@ -22,6 +23,7 @@ const Home: NextPage = () => (
     <main>
       <MainBanner />
       <MainDemo />
+      <AttributionSection/>
       <MainFooter />
     </main>
   </>
