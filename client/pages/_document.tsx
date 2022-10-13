@@ -32,6 +32,14 @@ export default class MyDocument extends Document {
           <meta name="theme-color" content={theme.palette.background.default} />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
+            rel="stylesheet"
+          />
+          <link
             rel="apple-touch-icon"
             sizes="180x180"
             href="/apple-touch-icon.png"
