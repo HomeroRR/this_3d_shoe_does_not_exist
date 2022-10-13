@@ -21,5 +21,5 @@ const theme: Theme = createTheme({
 });
 
 export const lightestFontColor = "white";
-export const brandFontFamily = "'Audiowide', Arial, Helvetica, sans-serif";
+export const brandFontFamily = "'Share Tech Mono', monospace";
 export default theme;
