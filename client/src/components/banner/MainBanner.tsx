@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Box, Grid, Stack, Typography } from "@mui/material";
+import { brandFontFamily } from "themes/theme";
 import logoImg from "../../../public/img/logo.svg";
 
 function MainBanner(): JSX.Element {
@@ -9,28 +10,37 @@ function MainBanner(): JSX.Element {
         <Grid item>
           <Image
             src={logoImg}
-            width={100}
-            height={100}
+            width={140}
+            height={140}
             alt="This 3d shoe doesn't exist logo: Calligraphy S in the form of a shoe."
           />
         </Grid>
         <Grid item>
-          <Stack>
+          <Box pb={2}>
+          <Stack spacing={1}>
             <Typography
               variant="h4"
               component="h1"
-              style={{ textAlign: "center", color: "white" }}
+              style={{
+                textAlign: "center",
+                color: "white",
+                fontFamily: brandFontFamily,
+              }}
             >
               This 3D shoe doesn&apos;t exist
             </Typography>
             <Typography
               variant="h5"
               component="h1"
-              style={{ textAlign: "center", color: "white" }}
+              style={{
+                textAlign: "center",
+                color: "white",
+                fontFamily: brandFontFamily,
+              }}
             >
               GAN-generated 3D shoes
             </Typography>
-          </Stack>
+          </Stack></Box>
         </Grid>
       </Grid>
     </Box>
